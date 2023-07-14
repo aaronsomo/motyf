@@ -1,0 +1,108 @@
+@import '~bootstrap/scss/bootstrap';
+
+@font-face {
+  font-family: 'Dirtyline';
+  src: url('./assets/fonts/Dirtyline.woff') format('woff'), url('./assets/fonts/Dirtyline.woff2') format('woff2');
+}
+
+body {
+  font-family: 'Avenir', 'Futura';
+  background-color: #171717;
+  color: white;
+}
+
+a {
+  color: #f3abff;
+  text-decoration: underline;
+
+  &:hover {
+    color: grey;
+  }
+}
+
+.btn {
+  color: #000;
+
+  padding: 10px 15px;
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 120%;
+  letter-spacing: 0.05em;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+  border: solid 3px transparent;
+  border-image-slice: 1;
+  background-image: linear-gradient(white, white),
+    linear-gradient(93.87deg, #a8e0ff 4.65%, #a8b6ff 46.64%, #ecb7ff 79.12%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+
+  &:hover {
+    background-image: linear-gradient(#ccc, #ccc),
+      linear-gradient(93.87deg, #a8e0ff 4.65%, #a8b6ff 46.64%, #ecb7ff 79.12%);
+    border: solid 3px transparent;
+    color: #2e2e2e;
+  }
+
+  &:active:not(:disabled):not(.disabled),
+  &.active:not(:disabled):not(.disabled) {
+    background-image: linear-gradient(#aaa, #aaa),
+      linear-gradient(93.87deg, #a8e0ff 4.65%, #a8b6ff 46.64%, #ecb7ff 79.12%);
+    border: solid 3px transparent;
+    color: #2e2e2e;
+  }
+
+  &:disabled {
+    background-image: linear-gradient(#aaa, #aaa),
+      linear-gradient(93.87deg, #a8e0ff 4.65%, #a8b6ff 46.64%, #ecb7ff 79.12%);
+    border: solid 3px transparent;
+    color: #2e2e2e;
+  }
+
+  &:focus,
+  &.focus {
+    background-color: #ccc;
+    border: solid 3px transparent;
+    color: #2e2e2e;
+  }
+}
+
+.btn.btn-secondary {
+  border-color: #e5eff4;
+  background: none;
+  color: #e5eff4;
+
+  &:focus,
+  &.focus,
+  &:hover,
+  &.hover,
+  &:active:not(:disabled):not(.disabled),
+  &.active:not(:disabled):not(.disabled) {
+    border-color: #bbb;
+    background: none;
+    color: #bbb;
+  }
+}
+
+.btn-primary.dropdown-toggle {
+  color: black !important;
+}
+
+.custom-control-input {
+  width: 2rem;
+}
+
+.custom-control-label::before {
+  background: linear-gradient(93.87deg, #a8e0ff 4.65%, #a8b6ff 46.64%, #ecb7ff 79.12%);
+}
+
+.custom-switch .custom-control-label::after {
+  background-color: white;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background: #76e3ad;
+}

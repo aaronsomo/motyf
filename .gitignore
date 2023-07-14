@@ -1,0 +1,24 @@
+frontend/node_modules/
+frontend/package-lock.json
+frontend/build
+frontend/.env
+backend/venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+__pycache__/
+.vscode/
+config.sh
+.DS_Store
+backend/scripts/failed_csv.csv
+backend/guessed_categories.csv
+# intellij
+.idea/
+*.iml
+# testing
+.pytest_cache
+backend/scripts/results
+# database dumps
+backend/*.sql
+# scraper html dumps
+backend/*.html

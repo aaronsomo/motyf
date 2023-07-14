@@ -1,0 +1,8 @@
+frontend/node_modules/
+backend/venv/
+.mypy_cache/
+.pytest_cache/
+__pycache__/
+.vscode/
+config.sh
+.DS_Store

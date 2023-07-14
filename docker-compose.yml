@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+  db:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    image: postgres:12
+    ports:
+      - '127.0.0.1:5432:5432'
+    expose:
+      - '5432'
+    environment:
+      - POSTGRES_USER=motyf
+      - POSTGRES_PASSWORD=dev_db_password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  web:
+    build: .
+    ports:
+      - '127.0.0.1:5000:5000'
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - FLASK_SECRET_KEY=$FLASK_SECRET_KEY
+      - API_URL_PREFIX=$API_URL_PREFIX
+      - ENABLE_USER_REGISTRATION=$ENABLE_USER_REGISTRATION
+      - ENVIRONMENT=$ENVIRONMENT
+      - DATABASE_URL=$DATABASE_URL
+      - FRONTEND_URL_PREFIX=$FRONTEND_URL_PREFIX
+      - NORCAP_API_KEY=$NORCAP_API_KEY
+      - NORCAP_CLIENT_ID=$NORCAP_CLIENT_ID
+      - NORCAP_API_PREFIX=$NORCAP_API_PREFIX
+      - NORCAP_UI_PREFIX=$NORCAP_UI_PREFIX
+      - QUICKNODE_HTTP_URL=$QUICKNODE_HTTP_URL
+      - DEPLOYER_PRIVATE_KEY=$DEPLOYER_PRIVATE_KEY
+      - POLYGONSCAN_KEY=$POLYGONSCAN_KEY
+      - MAIN_CONTRACT_ABI=$MAIN_CONTRACT_ABI
+      - MOTYF_ISSUER_ID=$MOTYF_ISSUER_ID
+      - MOTYF_MEMBER_ID=$MOTYF_MEMBER_ID
+      - LATEST_OFFERING_ID=$LATEST_OFFERING_ID
+      - DWOLLA_SECRET=$DWOLLA_SECRET
+      - DWOLLA_KEY=$DWOLLA_KEY
+      - DWOLLA_MASTER_FUNDING_ACCOUNT=$DWOLLA_MASTER_FUNDING_ACCOUNT
+    volumes:
+      - ./backend:/app/backend
+  order_executor:
+    build: .
+    command: ['python3', '/app/backend/scripts/order_executor.py']
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - FLASK_SECRET_KEY=$FLASK_SECRET_KEY
+      - API_URL_PREFIX=$API_URL_PREFIX
+      - ENABLE_USER_REGISTRATION=$ENABLE_USER_REGISTRATION
+      - ENVIRONMENT=$ENVIRONMENT
+      - DATABASE_URL=$DATABASE_URL
+      - FRONTEND_URL_PREFIX=$FRONTEND_URL_PREFIX
+      - NORCAP_API_KEY=$NORCAP_API_KEY
+      - NORCAP_CLIENT_ID=$NORCAP_CLIENT_ID
+      - NORCAP_API_PREFIX=$NORCAP_API_PREFIX
+      - NORCAP_UI_PREFIX=$NORCAP_UI_PREFIX
+      - QUICKNODE_HTTP_URL=$QUICKNODE_HTTP_URL
+      - DEPLOYER_PRIVATE_KEY=$DEPLOYER_PRIVATE_KEY
+      - POLYGONSCAN_KEY=$POLYGONSCAN_KEY
+      - MAIN_CONTRACT_ABI=$MAIN_CONTRACT_ABI
+      - MOTYF_ISSUER_ID=$MOTYF_ISSUER_ID
+      - MOTYF_MEMBER_ID=$MOTYF_MEMBER_ID
+      - LATEST_OFFERING_ID=$LATEST_OFFERING_ID
+      - DWOLLA_SECRET=$DWOLLA_SECRET
+      - DWOLLA_KEY=$DWOLLA_KEY
+      - DWOLLA_MASTER_FUNDING_ACCOUNT=$DWOLLA_MASTER_FUNDING_ACCOUNT
+    volumes:
+      - ./backend:/app/backend
+volumes:
+  db_data:

@@ -1,0 +1,21 @@
+name: Run PyTest
+
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Docker compose tests
+      env:
+        FLASK_SECRET_KEY: '0aa921aded847207de3abe968fcafbae'
+        DEBUG_MODE: '1'
+        API_URL_PREFIX: '/api'
+        CI: '1'
+        ENABLE_USER_REGISTRATION: '1'
+        DEPLOYER_PRIVATE_KEY: '0000000000000000000000000000000000000000000000000000000000000000'
+        DATABASE_URL: 'postgresql://motyf:dev_db_password@db/motyf'
+        ENVIRONMENT: 'test'
+      run: |
+        docker-compose run web bash -c 'PYTHONPATH=/app/backend pytest'

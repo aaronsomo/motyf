@@ -1,0 +1,14 @@
+
+FROM node:15-alpine
+
+# install node-gyp dependencies
+RUN apk add --update-cache python build-base git
+
+# install frontend dependencies
+COPY ./package.json /frontend/package.json
+COPY ./yarn.lock /frontend/yarn.lock
+RUN cd /frontend && yarnpkg
+
+# build frontend
+COPY . /frontend
+RUN cd /frontend && yarnpkg build
